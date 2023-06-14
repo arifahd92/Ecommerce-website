@@ -1,10 +1,11 @@
 import React from 'react'
+import Main from './Components/Main'
 
 
 export default function App() {
   return (
     <div>
-      i m app.js
+      <Main />
     </div>
   )
 }
