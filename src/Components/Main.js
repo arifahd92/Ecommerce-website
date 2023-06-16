@@ -40,9 +40,21 @@ const productsArr = [
 ];
 export default function Main() {
   const [show, setShow] = useState(false);
-
+  const [item, setItem] = useState([]);
+  const [tPrice, setTPrice] = useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const addToCart = (ind) => {
+    let toSave = productsArr.filter((item, index) => {
+      return ind == index;
+    });
+    let updateprice = 0;
+    item.forEach((item) => {
+      updateprice += +item.price;
+    });
+    setItem([...item, ...toSave]);
+    setTPrice(updateprice + productsArr[ind].price);
+  };
   return (
     <div>
       <Header
@@ -50,10 +62,11 @@ export default function Main() {
         handleShow={handleShow}
         show={show}
         setShow={setShow}
+        item={item}
       />
       <div className="container-fluid">
         <div className="row">
-          {productsArr.map((item) => {
+          {productsArr.map((item, ind) => {
             return (
               <>
                 <div className="col-md-6 d-flex justify-content-center">
@@ -68,7 +81,10 @@ export default function Main() {
                     />
                     <figcaption className="figure-caption d-flex justify-content-between">
                       <div className="p-2">${item.price}</div>{" "}
-                      <button className="btn btn-outline-success">
+                      <button
+                        className="btn btn-outline-success"
+                        onClick={() => addToCart(ind)}
+                      >
                         add to cart
                       </button>
                     </figcaption>
@@ -89,6 +105,10 @@ export default function Main() {
         handleShow={handleShow}
         show={show}
         setShow={setShow}
+        item={item}
+        price={tPrice}
+        setPrice={setTPrice}
+        setItem={setItem}
       />
       <Footer />
     </div>
