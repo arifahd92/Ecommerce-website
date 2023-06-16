@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../node_modules/bootstrap/dist/css/bootstrap.css";
 import Header from "./Header";
 import Footer from "./Footer";
+import { Button } from "react-bootstrap";
+import Cart from "./Cart";
+
 const productsArr = [
   {
     title: "Colors",
@@ -36,17 +39,26 @@ const productsArr = [
   },
 ];
 export default function Main() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <div>
-      <Header />
+      <Header
+        handleClose={handleClose}
+        handleShow={handleShow}
+        show={show}
+        setShow={setShow}
+      />
       <div className="container-fluid">
-        <div className="row d-flex justify-content-evenly">
+        <div className="row">
           {productsArr.map((item) => {
             return (
               <>
-                <div className="col-md-6">
+                <div className="col-md-6 d-flex justify-content-center">
                   <figure className="figure">
-                    <figcaption className="figure-caption text-center">
+                    <figcaption className="figure-caption text-center p-2">
                       {item.title}
                     </figcaption>
                     <img
@@ -55,7 +67,7 @@ export default function Main() {
                       alt=""
                     />
                     <figcaption className="figure-caption d-flex justify-content-between">
-                      <div>${item.price}</div>{" "}
+                      <div className="p-2">${item.price}</div>{" "}
                       <button className="btn btn-outline-success">
                         add to cart
                       </button>
@@ -68,10 +80,16 @@ export default function Main() {
         </div>
         <div className="row ">
           <div className="col d-flex justify-content-center mb-2">
-            <button className="btn bg-info">See the cart</button>
+            <Button onClick={handleShow}>see the cart</Button>
           </div>
         </div>
       </div>
+      <Cart
+        handleClose={handleClose}
+        handleShow={handleShow}
+        show={show}
+        setShow={setShow}
+      />
       <Footer />
     </div>
   );

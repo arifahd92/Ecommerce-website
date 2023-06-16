@@ -1,17 +1,16 @@
 import React from "react";
-
-export default function Header() {
+import { Button, Container, Nav, Row } from "react-bootstrap";
+export default function Header({ handleShow }) {
   return (
-    <div className="container-fluid ">
-      <div className="row text-white bg-dark ">
-        <div className="col text-center">HOME</div>
-        <div className="col text-center">STORE</div>
-        <div className="col text-center">ABOUT</div>
-        <div className="col text-center btn btn-outline-info">CART</div>
-      </div>
-      <div className="row text-center bg-secondary display-5">
-        <div className="col text-white pt-4 pb-4">The Generics</div>
-      </div>
-    </div>
+    <Container fluid className="bg-light p-3">
+      <Nav>
+        <Nav.Item className="p-2">Home</Nav.Item>
+        <Nav.Item className="p-2">Store</Nav.Item>
+        <Nav.Item className="p-2">about</Nav.Item>
+        <Nav.Item className="ml-auto">
+          <Button onClick={handleShow}>Cart</Button>
+        </Nav.Item>
+      </Nav>
+    </Container>
   );
 }
