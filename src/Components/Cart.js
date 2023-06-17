@@ -11,6 +11,15 @@ function Cart({ show, handleClose, item, setItem, price, setPrice }) {
 
     alert("thanks for shopping with us");
   };
+  let handleRemove = (ind) => {
+    let filtered = item.filter((item, index) => ind != index);
+    let updatedPrice = 0;
+    filtered.forEach((element) => {
+      updatedPrice += +element.price;
+    });
+    setItem(filtered);
+    setPrice(updatedPrice);
+  };
   return (
     <>
       <Modal show={show} onHide={handleClose} animation={false}>
@@ -47,7 +56,7 @@ function Cart({ show, handleClose, item, setItem, price, setPrice }) {
                     <Col className="col-4">
                       <div>{item.price}$</div>
                     </Col>
-                    <Col className="col-2 offset-2">
+                    <Col className="col-2">
                       <input
                         className="form-control"
                         type="text"
@@ -55,6 +64,12 @@ function Cart({ show, handleClose, item, setItem, price, setPrice }) {
                         name=""
                         id=""
                       />
+                    </Col>
+                    <Col className="col-2">
+                      <Button onClick={() => handleRemove(ind)}>
+                        {" "}
+                        remove{" "}
+                      </Button>
                     </Col>
                   </>
                 );

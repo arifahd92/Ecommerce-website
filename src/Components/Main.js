@@ -45,6 +45,17 @@ export default function Main() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const addToCart = (ind) => {
+    let added = false;
+    let clickedItemString = JSON.stringify(productsArr[ind]);
+    item.forEach((item) => {
+      if (JSON.stringify(item) == clickedItemString) {
+        alert("item already adde in cart");
+        added = true;
+      }
+    });
+    if (added) {
+      return;
+    }
     let toSave = productsArr.filter((item, index) => {
       return ind == index;
     });
@@ -54,6 +65,7 @@ export default function Main() {
     });
     setItem([...item, ...toSave]);
     setTPrice(updateprice + productsArr[ind].price);
+    alert("item added");
   };
   return (
     <div>
